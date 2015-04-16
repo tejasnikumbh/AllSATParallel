@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 PyMiniSolvers
 =============
 
@@ -62,3 +63,8 @@ License
 
 This code is licensed under the MIT license.  See LICENSE for details.
 
+=======
+# AllSAT
+AllSAT Using Minimal Blocking Clauses
+Python Code
+>>>>>>> 7b405f3232ccdcb8a9d915f0ae920398d527b3f7
