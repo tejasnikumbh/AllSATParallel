@@ -1,5 +1,6 @@
 import minisolvers
 import numpy as np
+import time
 
 '''
     Function to parse and forumlate a SAT Instance object that has methods
@@ -174,6 +175,6 @@ if __name__ == "__main__":
             print "UNSATISFIABLE"
         else:
             print "SATISFIABLE"
-            print "DNF Cover : ", Q      
-    
+            print "DNF Cover : ", Q
+                  
        

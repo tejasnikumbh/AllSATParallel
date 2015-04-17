@@ -1,5 +1,6 @@
 import minisolvers
 import numpy as np
+import time
 
 '''
     Function to parse and forumlate a SAT Instance object that has methods
@@ -147,31 +148,37 @@ def get_cube_cover(minterm,cList):
 '''    
 if __name__ == "__main__":
     
+    # Measures the time at this instance
+    start = time.clock()
     # Parsing the Input in cnf form and forming a SAT Instance
-    stream = open('input/input.cnf')
-    [S,cList] = parse_SAT(stream)
+    for i in range(1,1001):
+        file_string = "input/uf20-0" + str(i) + ".cnf"
+        stream = open(file_string)
+        [S,cList] = parse_SAT(stream)
     
-    # F is updated every iteration while the initial clause list as in
-    # cList remains the same. This is the crucial change that creates the 
-    # DNF Cover faster. If we update cList each iteration, it will produce
-    # disjoing cubes
-    i = 1
-    F = S
-    Q = []
-    while(F.solve()):
-        minterm = list(F.get_model())
-        [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
-        Q.append(list(cube_cover))
-        F.add_clause(blocking_clause)
-        # Previous technique Used to produce disjoint cubes by uncommenting
-        # the following line
-        # cList.append(bloking_clause) 
-        i = i + 1 
+        # F is updated every iteration while the initial clause list as in
+        # cList remains the same. This is the crucial change that creates the 
+        # DNF Cover faster. If we update cList each iteration, it will produce
+        # disjoing cubes
+        i = 1
+        F = S
+        Q = []
+        while(F.solve()):
+            minterm = list(F.get_model())
+            [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
+            Q.append(list(cube_cover))
+            F.add_clause(blocking_clause)
+            # Previous technique Used to produce disjoint cubes by uncommenting
+            # the following line
+            # cList.append(bloking_clause) 
+            i = i + 1 
     
-    if(i == 1):
-        print "UNSATISFIABLE"
-    else:
-        print "SATISFIABLE"
-        print "DNF Cover : ", Q      
-    
+        if(i == 1):
+            print "UNSATISFIABLE"
+        else:
+            print "SATISFIABLE"
+            print "DNF Cover : ", Q
+                  
+    end = time.clock()
+    print "Time Taken : ", end - start
        
