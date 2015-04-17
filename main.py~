@@ -167,23 +167,11 @@ if __name__ == "__main__":
         # the following line
         # cList.append(bloking_clause) 
         i = i + 1 
-    print Q  
+    
     if(i == 1):
         print "UNSATISFIABLE"
     else:
         print "SATISFIABLE"
         print "DNF Cover : ", Q      
-    #sat = S.solve()
-    #minterm = []
-    #if(sat): # Getting the minterm if the instance is solvable
-        #print "SATISFIABLE"
-        #minterm = list(S.get_model())
-        #cube_cover = get_cube_cover(minterm,cList)
-        
-        #print "Cube Cover : ",cube_cover
-        
-    #else:
-        #print "UNSATISFIABLE"
-        
     
-    
+       
