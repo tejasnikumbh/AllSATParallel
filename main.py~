@@ -57,8 +57,7 @@ def get_ucp_matrix(m_i,cList):
 def get_essential_literals_and_modify(m_i,matrix):
     essentialI = get_essential_literals(matrix)
     clauses_covered_I = get_clauses_covered_I(essentialI,matrix)
-    ucp_matrix_new = get_pruned_matrix(clauses_covered_I,ucp_matrix)
-                        
+    ucp_matrix_new = get_pruned_matrix(clauses_covered_I,matrix)            
     return [set([m_i[x] for x in essentialI]),
             ucp_matrix_new]
 
@@ -116,15 +115,15 @@ def implied(index,i,matrix):
     return True
     
 def get_greedy_cover(m_i,ucp_matrix):
-    ucp_matrix_np = np.array(ucp_matrix)
-    ucp_T = ucp_matrix_np.transpose()
-    sumList = [sum(row) for row in ucp_T]
     cover_vars = set([])
-    while(len(ucp_matrix) != 0):
+    while(len(ucp_matrix) > 0):
+        ucp_matrix_np = np.array(ucp_matrix)
+        ucp_T = ucp_matrix_np.transpose()
+        sumList = [sum(row) for row in ucp_T]
         max_val = max(sumList)
         max_val_I = sumList.index(max_val)
         cover_vars.add(max_val_I)
-        ucp_matrix = prune_literal(max_val_I,ucp_matrix)        
+        ucp_matrix = prune_literal(max_val_I,ucp_matrix)       
     return set([m_i[i] for i in cover_vars])
     
 def prune_literal(max_val_I,ucp_matrix):
@@ -134,6 +133,14 @@ def prune_literal(max_val_I,ucp_matrix):
             ucp_new.append(row)
     return ucp_new
             
+def get_cube_cover(minterm,cList):
+    [m_i,ucp_matrix] = get_ucp_matrix(minterm,cList)
+    [e_lit,ucp_matrix] = get_essential_literals_and_modify(m_i,ucp_matrix)
+    ucp_matrix = prune_implied(ucp_matrix)
+    greedy_terms = get_greedy_cover(m_i,ucp_matrix)
+    cube_cover = e_lit | greedy_terms
+    blocking_clause = set([-x for x in cube_cover])
+    return [cube_cover,blocking_clause]
         
 '''
     Main Program for the SAT Instance algorithm
@@ -141,24 +148,42 @@ def prune_literal(max_val_I,ucp_matrix):
 if __name__ == "__main__":
     
     # Parsing the Input in cnf form and forming a SAT Instance
-    stream = open('input/uf20-06.cnf')
+    stream = open('input/input.cnf')
     [S,cList] = parse_SAT(stream)
     
-    
-    sat = S.solve()
-    minterm = []
-    if(sat): # Getting the minterm if the instance is solvable
-        print "SATISFIABLE"
-        minterm = list(S.get_model())
-        [m_i,ucp_matrix] = get_ucp_matrix(minterm,cList)
-        [e_lit,ucp_matrix] = get_essential_literals_and_modify(m_i,ucp_matrix)
-        ucp_matrix = prune_implied(ucp_matrix)
-        greedy_terms = get_greedy_cover(m_i,ucp_matrix)
-        cube_cover = e_lit | greedy_terms
-        print "Cube Cover : ",cube_cover
-        
-    else:
+    # F is updated every iteration while the initial clause list as in
+    # cList remains the same. This is the crucial change that creates the 
+    # DNF Cover faster. If we update cList each iteration, it will produce
+    # disjoing cubes
+    i = 1
+    F = S
+    Q = []
+    while(F.solve()):
+        minterm = list(F.get_model())
+        [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
+        Q.append(list(cube_cover))
+        F.add_clause(blocking_clause)
+        # Previous technique Used to produce disjoint cubes by uncommenting
+        # the following line
+        # cList.append(bloking_clause) 
+        i = i + 1 
+    print Q  
+    if(i == 1):
         print "UNSATISFIABLE"
+    else:
+        print "SATISFIABLE"
+        print "DNF Cover : ", Q      
+    #sat = S.solve()
+    #minterm = []
+    #if(sat): # Getting the minterm if the instance is solvable
+        #print "SATISFIABLE"
+        #minterm = list(S.get_model())
+        #cube_cover = get_cube_cover(minterm,cList)
+        
+        #print "Cube Cover : ",cube_cover
+        
+    #else:
+        #print "UNSATISFIABLE"
         
     
     
