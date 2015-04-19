@@ -149,8 +149,9 @@ def get_cube_cover(minterm,cList):
 if __name__ == "__main__":
     
     # Parsing the Input in cnf form and forming a SAT Instance
-    for i in range(1,1001):
-        file_string = "input/uf20-0" + str(i) + ".cnf"
+    for i in range(100):
+        print i
+        file_string = "input/Random3SAT/uf125-538/uf125-0" + str(i+1) + ".cnf"
         stream = open(file_string)
         [S,cList] = parse_SAT(stream)
     
