@@ -1,10 +1,13 @@
+# Importing the standard libraries
 import minisolvers
 import numpy as np
 import time
 
 '''
-    Function to parse and forumlate a SAT Instance object that has methods
-    such as .solve and .get_model to solve the sat instance
+    Function : parse_SAT(stream)
+    Function to parse and forumlate a SAT Instance object that has methods such 
+    as .solve and .get_model to solve the sat instance. Parses the SAT problem
+    from the standard DIMACS format for SAT Benchmarks
 '''
 def parse_SAT(stream):
     lines = stream.readlines()
@@ -36,7 +39,10 @@ def parse_SAT(stream):
     return [S,cList]
         
 '''
-    Returns the UCP Matrix for the minterm
+    Function : get_ucp_matrix(m_i,cList)
+    Returns the UCP Matrix for the minterm. This function is a part of formulat
+    -ing the Hitting Set problem for the project and checks membership in the
+    clause list that is provided
 '''            
 def get_ucp_matrix(m_i,cList):
     # Transforming minterm to indicate the values of the terms
@@ -55,6 +61,12 @@ def get_ucp_matrix(m_i,cList):
     
     return [m_i,ucp_matrix]               
 
+'''
+    Function : get_essential_literals_and_modify(m_i,matrix)
+    Function returns the set of essential literals that are required for the
+    set of clauses to be covered. Also modifies the matrix to eliminate the 
+    covered set of clauses and returns it
+'''
 def get_essential_literals_and_modify(m_i,matrix):
     essentialI = get_essential_literals(matrix)
     clauses_covered_I = get_clauses_covered_I(essentialI,matrix)
@@ -62,13 +74,25 @@ def get_essential_literals_and_modify(m_i,matrix):
     return [set([m_i[x] for x in essentialI]),
             ucp_matrix_new]
 
+'''
+    SubFunction : get_essential_literals(matrix)
+    Returns the set of essential literals by checking the row sum of each of 
+    the rows. Each row here is a clause in the SAT Instance     
+'''
+# TODO : Parallelizable function 
 def get_essential_literals(matrix):
     essentialI = set([])
     for row in matrix:
         if(sum(row) == 1):  
             essentialI.add(row.index(1))            
     return essentialI
-                                    
+
+'''
+    SubFunction : get_clauses_covered(essentialI,matrix)
+    Returns the clauses covered by the essential literals since the essential
+    literal will cover many clauses and not only the the clause that makes it 
+    essential 
+'''                                    
 def get_clauses_covered_I(essentialI,matrix):
     clauses_covered = set([])
     for index in essentialI:
@@ -76,7 +100,12 @@ def get_clauses_covered_I(essentialI,matrix):
             if(matrix[rowI][index] == 1):
                 clauses_covered.add(rowI)
     return clauses_covered                
-            
+
+'''
+    Function : get_pruned_matrix(clauses_covered_I,ucp_matrix)
+    Returns a new matrix by pruning the existing matrix by eliminating the 
+    clauses that have already been covered        
+'''            
 def get_pruned_matrix(clauses_covered_I,ucp_matrix):
     ucp_matrix_new = []    
     for i in range(len(ucp_matrix)):
@@ -84,19 +113,33 @@ def get_pruned_matrix(clauses_covered_I,ucp_matrix):
             ucp_matrix_new.append(ucp_matrix[i])
     return ucp_matrix_new
                 
-                
+'''
+    Function : prune_implied(matrix)
+    Determines implied clauses and eliminates them. Note that this function 
+    assumes that there are no repeated(same) clauses in the input instance. This
+    should be the case as per the DIMACS guidelines
+'''                
 def prune_implied(matrix):
     row_elims = get_implied_rows(matrix)
     matrix = elim(matrix,row_elims)
     return matrix                
-    
+  
+'''
+    Function : elim(matrix,row_elims)
+    Eliminates the particular set of rows from the matrix as per the reference
+'''    
 def elim(matrix,row_elims):
     new_matrix = []
     for i in range(len(matrix)):
         if(i not in row_elims):
             new_matrix.append(matrix[i])
     return new_matrix    
-            
+
+'''
+    Function : get_implied_rows(matrix)
+    Returns the set of implied rows or clauses from the given matrix. Performs
+    the simple boolean implication test
+'''            
 def get_implied_rows(matrix):
     rows_I = set([])
     for i in range(len(matrix)):
@@ -106,6 +149,10 @@ def get_implied_rows(matrix):
                 rows_I.add(index)            
     return rows_I
 
+'''
+    Function : implied(index,i,matrix)
+    Returns if row indexed by 'i' implied row indexed by 'index'
+'''
 def implied(index,i,matrix):
     row1 = matrix[i]
     row2 = matrix[index]
@@ -115,6 +162,12 @@ def implied(index,i,matrix):
                 return False    
     return True
     
+'''
+    Function : get_greedy_cover(m_i,ucp_matrix)
+    This function returns the greedy set cover for the set cover problem. In 
+    the current scenario, we prune the exiting ucp_matrix after every greedy 
+    literal pick, until all the clauses have been exhausted
+'''    
 def get_greedy_cover(m_i,ucp_matrix):
     cover_vars = set([])
     while(len(ucp_matrix) > 0):
@@ -133,7 +186,13 @@ def prune_literal(max_val_I,ucp_matrix):
         if(row[max_val_I] != 1):
             ucp_new.append(row)
     return ucp_new
-            
+
+'''
+    Function : get_cube_cover(minterm,cList)
+    Returns the cube cover of a particular minterm and the associated blocking
+    clause. Uses the SAT Instance defined by cList as the base for computing 
+    the cube cover for the particular minterm
+'''            
 def get_cube_cover(minterm,cList):
     [m_i,ucp_matrix] = get_ucp_matrix(minterm,cList)
     [e_lit,ucp_matrix] = get_essential_literals_and_modify(m_i,ucp_matrix)
@@ -144,15 +203,16 @@ def get_cube_cover(minterm,cList):
     return [cube_cover,blocking_clause]
         
 '''
-    Main Program for the SAT Instance algorithm
+    Main Program for the SAT Instance algorithm. This function is incharge of
+    which SAT Benchmark the algorithm is tried upon and produces the required 
+    results
 '''    
 if __name__ == "__main__":
     
-    # Measures the time at this instance
-    start = time.clock()
     # Parsing the Input in cnf form and forming a SAT Instance
-    for i in range(1,1001):
-        file_string = "input/uf20-0" + str(i) + ".cnf"
+    for i in range(100):
+        print i
+        file_string = "input/Random3SAT/uf125-538/uf125-0" + str(i+1) + ".cnf"
         stream = open(file_string)
         [S,cList] = parse_SAT(stream)
     
@@ -179,6 +239,4 @@ if __name__ == "__main__":
             print "SATISFIABLE"
             print "DNF Cover : ", Q
                   
-    end = time.clock()
-    print "Time Taken : ", end - start
        
