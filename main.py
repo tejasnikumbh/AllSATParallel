@@ -1,6 +1,5 @@
 # Importing the standard libraries
 import minisolvers
-import numpy as np
 import time
 
 '''
@@ -51,15 +50,19 @@ def get_ucp_matrix(m_i,cList):
     # Populating the UCP Matrix
     ucp_matrix = []
     for clause in cList:
-        ucp_row = []
-        for literal in m_i:
-            if(literal in clause):
-                ucp_row.append(1)
-            else:
-                ucp_row.append(0)
+	ucp_row = get_ucp_row(m_i,clause)    
         ucp_matrix.append(ucp_row)
     
     return [m_i,ucp_matrix]               
+
+def get_ucp_row(m_i,clause):
+    ucp_row = []
+    for literal in m_i:
+        if(literal in clause):
+            ucp_row.append(1)
+        else:
+            ucp_row.append(0)
+    return ucp_row
 
 '''
     Function : get_essential_literals_and_modify(m_i,matrix)
@@ -162,6 +165,9 @@ def implied(index,i,matrix):
                 return False    
     return True
     
+def transpose(matrix):
+    return zip(*matrix)
+	
 '''
     Function : get_greedy_cover(m_i,ucp_matrix)
     This function returns the greedy set cover for the set cover problem. In 
@@ -171,8 +177,7 @@ def implied(index,i,matrix):
 def get_greedy_cover(m_i,ucp_matrix):
     cover_vars = set([])
     while(len(ucp_matrix) > 0):
-        ucp_matrix_np = np.array(ucp_matrix)
-        ucp_T = ucp_matrix_np.transpose()
+        ucp_T = transpose(ucp_matrix)
         sumList = [sum(row) for row in ucp_T]
         max_val = max(sumList)
         max_val_I = sumList.index(max_val)
@@ -212,7 +217,7 @@ if __name__ == "__main__":
     # Parsing the Input in cnf form and forming a SAT Instance
     for i in range(100):
         print i
-        file_string = "input/Random3SAT/uf125-538/uf125-0" + str(i+1) + ".cnf"
+        file_string = "input/Random3SAT/uf20-91/uf20-0" + str(i+1) + ".cnf"
         stream = open(file_string)
         [S,cList] = parse_SAT(stream)
     
