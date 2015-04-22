@@ -217,7 +217,7 @@ if __name__ == "__main__":
     # Parsing the Input in cnf form and forming a SAT Instance
     for i in range(100):
         print i
-        file_string = "input/Random3SAT/uf125-538/uf125-0" + str(i+1) + ".cnf"
+        file_string = "input/Random3SAT/uf75-325/uf75-0" + str(i+1) + ".cnf"
         stream = open(file_string)
         [S,cList] = parse_SAT(stream)
     
