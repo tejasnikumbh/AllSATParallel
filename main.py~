@@ -234,8 +234,7 @@ def get_all_sat(S,cList):
         Q.append(list(cube_cover))
         F.add_clause(blocking_clause)
         # Previous technique Used to produce disjoint cubes by uncommenting
-        # the following line: - 
-        # cList.append(bloking_clause) 
+        # the following line cList.append(bloking_clause) 
         j = j + 1 
     return [j,Q]
     
