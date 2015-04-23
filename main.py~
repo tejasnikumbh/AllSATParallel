@@ -72,7 +72,7 @@ def get_ucp_row(m_i,clause):
     covered set of clauses and returns it
 '''
 def get_essential_literals_and_modify(m_i,matrix):
-    [essentialI,clauses_covered] = get_clause_cover(matrix)  
+    clauses_covered = get_clause_cover(matrix)  
     ucp_matrix_new = get_pruned_matrix(clauses_covered,matrix)            
     return [set([m_i[x] for x in essentialI]),
             ucp_matrix_new]
@@ -92,7 +92,7 @@ def get_clause_cover(matrix):
             if(matrix[rowI][index] == 1):
                 clauses_covered.add(rowI)
 
-    return [essentialI,clauses_covered]      
+    return clauses_covered      
 
 '''
     Function : get_pruned_matrix(clauses_covered_I,ucp_matrix)
