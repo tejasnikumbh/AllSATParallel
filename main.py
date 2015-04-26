@@ -1,10 +1,8 @@
 # Importing the standard libraries
-import pp
-from multiprocessing import Pool
+from collections import OrderedDict
+import multiprocessing
 import minisolvers
 import time
-import sys
-import heapq
 
 '''
     Function : parse_SAT(stream)
@@ -101,16 +99,10 @@ def get_essential_literals(matrix):
 def get_clauses_covered_I(essentialI,matrix):
     clauses_covered = set([])
     for index in essentialI:
-        job = job_server.submit(get_clauses,(index,matrix),(),()) 
-        clauses_covered = clauses_covered | job()        
+        for rowI in range(len(matrix)):
+            if(matrix[rowI][index] == 1):
+                clauses_covered.add(rowI)
     return clauses_covered                
-
-def get_clauses(index,matrix):
-    clauses_covered = set([])
-    for rowI in range(len(matrix)):
-        if(matrix[rowI][index] == 1):
-            clauses_covered.add(rowI)
-    return clauses_covered
 
 '''
     Function : get_pruned_matrix(clauses_covered_I,ucp_matrix)
@@ -182,7 +174,6 @@ def transpose(matrix):
     the current scenario, we prune the exiting ucp_matrix after every greedy 
     literal pick, until all the clauses have been exhausted
 '''    
-
 def get_greedy_cover(m_i,ucp_matrix):
     cover_vars = set([])
     while(len(ucp_matrix) > 0):
@@ -193,13 +184,13 @@ def get_greedy_cover(m_i,ucp_matrix):
         cover_vars.add(max_val_I)
         ucp_matrix = prune_literal(max_val_I,ucp_matrix)       
     return set([m_i[i] for i in cover_vars])
-        
+    
 def prune_literal(max_val_I,ucp_matrix):
     ucp_new = []
     for row in ucp_matrix:
         if(row[max_val_I] != 1):
             ucp_new.append(row)
-    return ucp_new    
+    return ucp_new
 
 '''
     Function : get_cube_cover(minterm,cList)
@@ -207,9 +198,7 @@ def prune_literal(max_val_I,ucp_matrix):
     clause. Uses the SAT Instance defined by cList as the base for computing 
     the cube cover for the particular minterm
 '''            
-def get_cube_cover(args):
-    minterm = args[0]
-    cList = args[1]
+def get_cube_cover(minterm,cList):
     [m_i,ucp_matrix] = get_ucp_matrix(minterm,cList)
     [e_lit,ucp_matrix] = get_essential_literals_and_modify(m_i,ucp_matrix)
     ucp_matrix = prune_implied(ucp_matrix)
@@ -218,15 +207,15 @@ def get_cube_cover(args):
     blocking_clause = set([-x for x in cube_cover])
     return [cube_cover,blocking_clause]
 
-def print_result(is_solvable,Q):
-    if(is_solvable):
-        print "SATISFIABLE"
-    else:
+def print_result(i,Q):
+    if(i == 1):
         print "UNSATISFIABLE"
+    else:
+        print "SATISFIABLE"
         
 
 def get_cur_problem_stream(i):
-    file_string = "input/Random3SAT/uf75-325/uf75-0" + str(i+1) + ".cnf"
+    file_string = "input/Random3SAT/uf100-430/uf100-0" + str(i+1) + ".cnf"
     stream = open(file_string)
     return stream
         
@@ -236,53 +225,20 @@ def get_all_sat(S,cList):
     # cList remains the same. This is the crucial change that creates the 
     # DNF Cover faster. If we update cList each iteration, it will produce
     # disjoing cubes
-    is_solvable = False
+    j = 1
     F = S
     Q = []
     while(F.solve()):
-
-        # Basic assignments
-        is_solvable = True
-        cube_cover = [0]*ncpus
-        blocking_clause = [0]*ncpus
-        minterms = [0]*ncpus
-        m_is = [0]*ncpus
-
-        # Creating the minterms
-        for i in range(ncpus):
-            minterms[i] = list(F.get_model())
-            m_is[i] = [(j+1) if minterms[i][j] == 1 else -(j+1) for j in range(len(minterms[i]))]
-            if(i != (ncpus - 1)):
-                F.add_clause(set([-lit for lit in m_is[i]])) 
-         
-
-        for i in range(ncpus):
-            result = get_cube_cover([minterms[i],cList])
-            cube_cover[i] = result[0]
-            blocking_clause[i] = result[1]
-
-        # Parallel code
-        ''' 
-        results = job_server.map(get_cube_cover,zip(minterms,[cList for i in range(ncpus)]) )
-        for i in range(ncpus):
-            cube_cover[i] = results[i][0]
-            blocking_clause[i] = results[i][1]
-        ''' 
-        
-
-        for i in range(ncpus): 
-            Q.append(list(cube_cover[i]))
-            F.add_clause(blocking_clause[i])
-            # Previous technique Used to produce disjoint cubes by uncommenting
-            # the following line: - 
-            #cList.append(blocking_clause) 
-        
-    return [is_solvable,Q]
+        minterm = list(F.get_model())
+        [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
+        Q.append(list(cube_cover))
+        F.add_clause(blocking_clause)
+        # Previous technique Used to produce disjoint cubes by uncommenting
+        # the following line: - 
+        # cList.append(bloking_clause) 
+        j = j + 1 
+    return [j,Q]
     
-# Global Variables
-global job_server
-global ncpus
-
 '''
     Main Program for the SAT Instance algorithm. This function is incharge of
     which SAT Benchmark the algorithm is tried upon and produces the required 
@@ -290,35 +246,14 @@ global ncpus
 '''    
 if __name__ == "__main__":
     
-    # Specifying that we are referring to the global variable job_server
-    global job_server
-    global ncpus
-
-    # Initializing tuple of servers 
-    ppservers = ()
-
-    # Code for specifying the number of worker threads
-    if len(sys.argv) > 1:
-        ncpus = int(sys.argv[1])
-        #job_server = Pool(ncpus)
-        job_server = pp.Server(ncpus, ppservers=ppservers)  
-    else:
-        # Creates jobserver with automatically detected number of workers
-        #job_server = Pool(ncpus)
-        job_server = pp.Server(ppservers=ppservers)
-
-    # Printing the number of worker threads to the output
-    print "Number of worker threads " , ncpus              
-   
-    start_time = time.time()
     # Parsing the Input in cnf form and forming a SAT Instance
-    for i in range(24,25):
-        if(i!= 86 and i!=32 and i!=72):
-            print "Current problem : " + str(i)
-            stream = get_cur_problem_stream(i)
-            [S,cList] = parse_SAT(stream)
-            [is_solvable,Q] = get_all_sat(S,cList)
-            print_result(is_solvable,Q)
+    for i in range(100):
+        print "Current problem : " + str(i)
+        stream = get_cur_problem_stream(i)
+        [S,cList] = parse_SAT(stream)
+        [j,Q] = get_all_sat(S,cList)
+        print_result(j,Q)
 
-    end_time = time.time()
-    print end_time - start_time
+                  
+   
+
