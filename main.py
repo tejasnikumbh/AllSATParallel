@@ -1,6 +1,8 @@
 # Importing the standard libraries
 import minisolvers
-import time
+# Relevant to the parallel module
+import pp
+import sys
 
 '''
     Function : parse_SAT(stream)
@@ -44,17 +46,40 @@ def parse_SAT(stream):
     clause list that is provided
 '''            
 def get_ucp_matrix(m_i,cList):
+
     # Transforming minterm to indicate the values of the terms
     m_i = [(i+1) if m_i[i] == 1 else -(i+1) for i in range(len(m_i))]
     
+    # Part of failed strategy #1
+    '''
+    len_cList = len(cList) 
+    len_1 = len_cList/2
+    len_2 = len_cList - len_cList/2
+    job1 = job_server.submit(get_ucp_matrix_part,(m_i,cList[:len_1],len_1),(get_ucp_row,),())     
+    job2 = job_server.submit(get_ucp_matrix_part,(m_i,cList[len_1:len_1 + len_2],len_2),(get_ucp_row,),())
+    ucp_matrix_1 = job1()
+    ucp_matrix_2 = job2()
+    ucp_matrix = ucp_matrix_1 + ucp_matrix_2
+    '''
+
     # Populating the UCP Matrix
     ucp_matrix = [0]*len(cList)
     for i in range(len(cList)):
+        ucp_row = get_ucp_row(m_i,cList[i])
+	ucp_matrix[i] = ucp_row
+
+    return [m_i,ucp_matrix] 
+
+# Part of Failed Stragegy #1.   
+'''    
+def get_ucp_matrix_part(m_i,cList,len_p):
+    ucp_matrix = [0]*len_p
+    for i in range(len_p):
 	ucp_row = get_ucp_row(m_i,cList[i])    
         ucp_matrix[i] = ucp_row
+    return ucp_matrix
+'''
     
-    return [m_i,ucp_matrix]               
-
 def get_ucp_row(m_i,clause):
     ucp_row = [0]*len(m_i) 
     for i in range(len(m_i)):
@@ -210,10 +235,9 @@ def print_result(i,Q):
         print "UNSATISFIABLE"
     else:
         print "SATISFIABLE"
-        
 
 def get_cur_problem_stream(i):
-    file_string = "input/Random3SAT/uf100-430/uf100-0" + str(i+1) + ".cnf"
+    file_string = "input/Random3SAT/uf75-325/uf75-0" + str(i+1) + ".cnf"
     stream = open(file_string)
     return stream
         
@@ -233,16 +257,56 @@ def get_all_sat(S,cList):
         F.add_clause(blocking_clause)
         # Previous technique Used to produce disjoint cubes by uncommenting
         # the following line: - 
-        # cList.append(bloking_clause) 
+        # cList.append(blocking_clause) 
+
+        '''
+        # Failed Strategy number 2
+        minterm_1 = list(F.get_model())
+        m_1 = [(i+1) if minterm_1[i] == 1 else -(i+1) for i in range(len(minterm_1))]
+        [cube_cover_1,blocking_clause_1] = get_cube_cover(minterm_1,cList)
+        S.add_clause([-i for i in m_1])
+        S.solve()
+        minterm_2 = list(S.get_model())
+        m_2 =  [(i+1) if minterm_2[i] == 1 else -(i+1) for i in range(len(minterm_2))]
+        [cube_cover_2,blocking_clause_2] = get_cube_cover(minterm_2,cList)
+        Q.append(list(cube_cover_1))
+        Q.append(list(cube_cover_2))
+        F.add_clause(blocking_clause_1)
+        F.add_clause(blocking_clause_2)       
+        '''
         j = j + 1 
     return [j,Q]
-    
+  
+
+# Global parallel vars being assigned defaults
+job_server = None  
+ncpus = 1
+
 '''
     Main Program for the SAT Instance algorithm. This function is incharge of
     which SAT Benchmark the algorithm is tried upon and produces the required 
     results
 '''    
 if __name__ == "__main__":
+
+    # Global variables
+    global job_server
+    global ncpus
+
+    # tuple of all parallel python servers to connect with
+    ppservers = ()
+    #ppservers = ("127.0.0.1:60000", )
+
+    if len(sys.argv) > 1:
+        ncpus = int(sys.argv[1])
+        # Creates jobserver with ncpus workers
+        job_server = pp.Server(ncpus, ppservers=ppservers)
+    else:
+        # Creates jobserver with automatically detected number of workers
+        job_server = pp.Server(ppservers=ppservers)
+
+    print "Starting pp with", job_server.get_ncpus(), "workers"
+
     
     # Parsing the Input in cnf form and forming a SAT Instance
     for i in range(100):
@@ -251,7 +315,12 @@ if __name__ == "__main__":
         [S,cList] = parse_SAT(stream)
         [j,Q] = get_all_sat(S,cList)
         print_result(j,Q)
-
-                  
-   
+    
+ 
+    # Debugger stream
+    '''
+    [S,cList] = parse_SAT(open("input/input.cnf"))
+    [j,Q] = get_all_sat(S,cList)
+    print_result(j,Q)              
+    '''
 
