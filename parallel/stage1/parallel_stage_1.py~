@@ -85,10 +85,8 @@ if __name__ == "__main__":
     jobs = [(mat, job_server.submit(get_essentials, (mat, ), (has_essential, ),
             ("math", ))) for mat in matrices]
 
-    results = set([])
     for mat, job in jobs:  
-        result = job()
-        results = results | result
+        print "Essentials in is : ", job()
 
     job_server.print_stats()
 
