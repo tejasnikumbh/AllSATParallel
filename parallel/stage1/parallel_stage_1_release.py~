@@ -74,16 +74,11 @@ if __name__ == "__main__":
     # Splitting the matrix into $ncpus number of parts
     matrices = []
     div_height = rows/ncpus
-    if(div_height > 0):
-        for i in range(ncpus):
-            if(i!=ncpus-1):
-                matrix_cur = matrix[i*div_height:(i+1)*div_height]
-            else:
-                matrix_cur = matrix[i*div_height:rows]
-            matrices.append(matrix_cur)
-    else:
-        matrices.append(matrix)
- 
+    for i in range(ncpus):
+        matrix_cur = matrix[i*div_height:(i+1)*div_height]
+        matrices.append(matrix_cur)
+    # print len(matrices)
+    
     
     # The following submits 8 jobs and then retrieves the results
     # inputs = (100000, 100010, 100200, 100300, 100040, 100500, 100060, 100700)

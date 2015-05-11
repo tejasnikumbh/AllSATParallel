@@ -88,7 +88,10 @@ if __name__ == "__main__":
     matrix = gen_rand_SAT_UCP(rows,cols) 
     '''
     # For debug version
-    matrix = [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0], [0, 0, 1, 1, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0, 0, 1, 0], [1, 0, 0, 0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
+    matrix = [[1], [1], [1], [1], [1], [1], [1], [1]]
+
+
+
     rows = len(matrix)
     cols = len(matrix)
     
@@ -97,10 +100,16 @@ if __name__ == "__main__":
     # Splitting the matrix into $ncpus number of parts
     matrices = []
     div_height = rows/ncpus
-    for i in range(ncpus):
-        matrix_cur = matrix[i*div_height:(i+1)*div_height]
-        matrices.append(matrix_cur)
-    
+    if(div_height > 0):
+        for i in range(ncpus):
+            if(i!=ncpus-1):
+                matrix_cur = matrix[i*div_height:(i+1)*div_height]
+            else:
+                matrix_cur = matrix[i*div_height:cols]
+            matrices.append(matrix_cur)
+    else:
+        matrices.append(matrix)
+
     print "Matrices : ", matrices # Debug statement
 
     # The following submits 8 jobs and then retrieves the results

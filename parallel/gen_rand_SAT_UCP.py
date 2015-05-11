@@ -22,6 +22,6 @@ def gen_rand_SAT_UCP(r,c):
     return matrix
 
 if __name__ == "__main__":
-    matrix = gen_rand_SAT_UCP(10,10)
+    matrix = gen_rand_SAT_UCP(8,1)
     print matrix
      

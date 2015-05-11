@@ -110,7 +110,7 @@ if __name__ == "__main__":
             if(i!=ncpus-1):
                 matrix_cur = matrix[i*div_height:(i+1)*div_height]
             else:
-                matrix_cur = matrix[i*div_height:cols]
+                matrix_cur = matrix[i*div_height:rows]
             matrices.append(matrix_cur)
     else:
         matrices.append(matrix)

@@ -98,7 +98,9 @@ if __name__ == "__main__":
     # Retrieving the random 3SAT Instance with given 
     # $rows clauses and $cols variables  
     #matrix = gen_rand_SAT_UCP(rows,cols)
-    matrix = [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0], [0, 0, 1, 1, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0, 0, 1, 0], [1, 0, 0, 0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
+    matrix = [[1], [1], [1], [1], [1], [1], [1], [1]]
+
+
 
     rows = len(matrix)
     cols = len(matrix[0])
@@ -113,7 +115,7 @@ if __name__ == "__main__":
             if(i!=ncpus-1):
                 matrix_cur = matrix[i*div_height:(i+1)*div_height]
             else:
-                matrix_cur = matrix[i*div_height:cols]
+                matrix_cur = matrix[i*div_height:rows]
             matrices.append(matrix_cur)
     else:
         matrices.append(matrix)

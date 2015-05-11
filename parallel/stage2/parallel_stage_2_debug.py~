@@ -98,7 +98,9 @@ if __name__ == "__main__":
     # Retrieving the random 3SAT Instance with given 
     # $rows clauses and $cols variables  
     #matrix = gen_rand_SAT_UCP(rows,cols)
-    matrix = [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0], [0, 0, 1, 1, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0, 0, 1, 0], [1, 0, 0, 0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
+    matrix = [[1], [1], [1], [1], [1], [1], [1], [1]]
+
+
 
     rows = len(matrix)
     cols = len(matrix[0])
