@@ -11,10 +11,10 @@ def gen_rand_SAT_UCP(r,c):
     matrix = [0]*r
     for i in range(r):
         temp_row = [0]*c
-        row_lits = randrange(1,6)
+        row_lits = randrange(1,13)
         if(row_lits < 5): row_lits = 1
         else: row_lits = randrange(2,4)
-        print row_lits
+        #print row_lits
         for j in range(row_lits):
             rand_index = randrange(0,c)
             temp_row[rand_index] = 1
@@ -22,6 +22,6 @@ def gen_rand_SAT_UCP(r,c):
     return matrix
 
 if __name__ == "__main__":
-    matrix = gen_rand_SAT_UCP(250,1000)
+    matrix = gen_rand_SAT_UCP(25,10)
     print matrix
      
