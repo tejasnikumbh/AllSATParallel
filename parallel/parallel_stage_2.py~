@@ -57,8 +57,6 @@ def gen_rand_SAT_UCP(r,c):
 def get_clauses_covered(myarg):
     matrix = myarg[0] 
     lit_list = myarg[1]
-    max_index = lit_list[-1]
-    # print max_index
     clauses_covered = set([]) 
     for lit in lit_list:
         for i in range(len(matrix)):
@@ -68,7 +66,7 @@ def get_clauses_covered(myarg):
                 
 if __name__ == "__main__":
 
-    print """Usage: python sum_primes.py [ncpus]
+    print """Usage: python [scriptname.py] [ncpus]
         [ncpus] - the number of workers to run in parallel,
         if omitted it will be set to the number of processors in the system"""
 
@@ -126,13 +124,7 @@ if __name__ == "__main__":
     # to parallelize the calculation of clauses covered. We use the strategy of 
     # splitting the matrix as before and computing clauses covered
     results_list = list(results)
-    
-    # At this stage we have the seperated lists in the essential_lists matrix
-    # We now create a matrix,list argument list to pass to the parallelizing
-    # function. This is necessary since the parralel library allows for functions
-    # to take only one argument
-    
-    arg_list = [(matrix,essential_list) for essential_list in essential_lists]
+    arg_list = [(matrix,results_list) for matrix in matrices]
 
     # Creating the job queue    
     jobs = [job_server.submit(get_clauses_covered, (mat, ), (),

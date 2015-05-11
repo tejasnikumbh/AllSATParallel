@@ -50,14 +50,26 @@ def gen_rand_SAT_UCP(r,c):
 def get_clauses_covered(myarg):
     matrix = myarg[0] 
     lit_list = myarg[1]
-    max_index = lit_list[-1]
-    # print max_index
     clauses_covered = set([]) 
     for lit in lit_list:
         for i in range(len(matrix)):
             if(matrix[i][lit] == 1):
                 clauses_covered.add(i)
     return clauses_covered 
+
+'''
+    Function to print the matrix of our choice.
+'''
+def print_matrix(matrix):
+    if(len(matrix) == 0): return
+    if(len(matrix[0]) == 0): return
+    [r,c] = [len(matrix),len(matrix[0])]
+    for i in range(r):
+        row_str = ""
+        for j in range(c):
+            row_str += str(matrix[i][j]) + " "
+        print row_str
+    return
                 
 if __name__ == "__main__":
 
@@ -83,8 +95,8 @@ if __name__ == "__main__":
 
     # Retrieving the random 3SAT Instance with given 
     # $rows clauses and $cols variables  
-    rows = 10000
-    cols = 4000
+    rows = 1000
+    cols = 80
     matrix = gen_rand_SAT_UCP(rows,cols)
     
     # Splitting the matrix into $ncpus number of parts
@@ -110,29 +122,16 @@ if __name__ == "__main__":
         #max_len += len(result)
         results = results | result
     
-    # Printing stats after stage 1 [Getting essential literals]   
+    # Printing stats after stage 1 parallelization [Getting essential literals]   
     job_server.print_stats()
     #print "All essentials are : ", results
     #print len(results) <= max_len
     
     # Now all essential literals are stored in the set results. We now proceed on
-    # to parallelize the calculation of clauses covered
+    # to parallelize the calculation of clauses covered. We use the strategy of 
+    # splitting the matrix as before and computing clauses covered
     results_list = list(results)
-    results_list.sort() 
-    #print results_list
-    essential_lists = []
-    list_len = len(results_list) / ncpus
-    for i in range(ncpus):
-        list_temp = results_list[i*list_len:(i+1)*list_len]
-        essential_lists.append(list_temp)
-    #print essential_lists   
-    
-    # At this stage we have the seperated lists in the essential_lists matrix
-    # We now create a matrix,list argument list to pass to the parallelizing
-    # function. This is necessary since the parralel library allows for functions
-    # to take only one argument
-    
-    arg_list = [(matrix,essential_list) for essential_list in essential_lists]
+    arg_list = [(matrix,results_list) for matrix in matrices]
 
     # Creating the job queue    
     jobs = [job_server.submit(get_clauses_covered, (mat, ), (),
@@ -143,5 +142,25 @@ if __name__ == "__main__":
         clauses_covered = clauses_covered | job()    
 
     #print clauses_covered
+    # Server statistics after stage 2 parallelization [Getting clauses covered]
     job_server.print_stats()
+    
+    # Showing the old matrix before removing clauses covered   
+    print "ORIGINAL MATRIX" 
+    print_matrix(matrix)
+
+    # Computing the new matrix length
+    new_matrix_len = (len(matrix) - len(clauses_covered))
+    new_matrix = [0]*new_matrix_len
+    count = 0
+    for i in range(len(matrix)):
+        if(i not in clauses_covered):
+            new_matrix[count] = matrix[i]
+            count += 1
+
+    # Showing the new matrix 
+    print "MATRIX AFTER REMOVING COVERED CLAUSES"   
+    print_matrix(new_matrix)
+
+    
 

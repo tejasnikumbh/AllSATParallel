@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# File: sum_primes.py
-# Author: Vitalii Vanovschi
-# Desc: This program demonstrates parallel computations with pp module
-# It calculates the sum of prime numbers below a given integer in parallel
-# Parallel Python Software: http://www.parallelpython.com
-
 # For parallelization
 import math
 import sys
@@ -52,7 +45,7 @@ def gen_rand_SAT_UCP(r,c):
 
 if __name__ == "__main__":
 
-    print """Usage: python sum_primes.py [ncpus]
+    print """Usage: python [scriptname.py] [ncpus]
         [ncpus] - the number of workers to run in parallel,
         if omitted it will be set to the number of processors in the system"""
 
