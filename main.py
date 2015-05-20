@@ -105,7 +105,7 @@ def get_essential_literals_and_modify(m_i,matrix):
     Returns the set of essential literals by checking the row sum of each of 
     the rows. Each row here is a clause in the SAT Instance     
 '''
-# TODO : Parallelizable function 
+# Parallelizable function 
 def get_essential_literals(matrix):
     essentialI = set([])
     for row in matrix:
@@ -237,7 +237,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Random3SAT/uf75-325/uf75-0" + str(i+1) + ".cnf"
+    file_string = "input/Random3SAT/uf175-753/uf175-0" + str(i+1) + ".cnf"
     stream = open(file_string)
     return stream
         
