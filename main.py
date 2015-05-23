@@ -237,7 +237,8 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Random3SAT/uf175-753/uf175-0" + str(i+1) + ".cnf"
+    file_string = "input/Crafted/jnh" + str(i) + ".cnf"
+    print file_string
     stream = open(file_string)
     return stream
         
@@ -309,7 +310,11 @@ if __name__ == "__main__":
 
     
     # Parsing the Input in cnf form and forming a SAT Instance
-    for i in range(100):
+    # Crafted problem file list
+    crafted_list = [1,7,201,204,205,209,207,210,212,213,217,218,220,301]
+
+    # Change to for i in range(1,101) for Random SAT Simulations
+    for i in crafted_list:
         print "Current problem : " + str(i)
         stream = get_cur_problem_stream(i)
         [S,cList] = parse_SAT(stream)
