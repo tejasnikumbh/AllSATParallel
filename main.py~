@@ -32,10 +32,11 @@ def parse_SAT(stream):
             for i in range(nVars): 
                 S.new_var()  
         else:
-            # The current line is a clause
+            # The current line is a clause 
             clause = set([int(x) for x in line.split() if not(x == '0')])
+            clause_list_form = list(clause)
             cList.append(clause)
-            S.add_clause(clause)
+            S.add_clause(clause_list_form)
     # Return the SAT Instance
     return [S,cList]
         
@@ -237,7 +238,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Crafted/jnh" + str(i) + ".cnf"
+    file_string = "input/Industrial/ssa" + str(i) + ".cnf"
     print file_string
     stream = open(file_string)
     return stream
@@ -253,6 +254,7 @@ def get_all_sat(S,cList):
     Q = []
     while(F.solve()):
         minterm = list(F.get_model())
+        print minterm
         [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
         Q.append(list(cube_cover))
         F.add_clause(blocking_clause)
@@ -311,10 +313,13 @@ if __name__ == "__main__":
     
     # Parsing the Input in cnf form and forming a SAT Instance
     # Crafted problem file list
+    random_list = range(1,101)
     crafted_list = [1,7,201,204,205,209,207,210,212,213,217,218,220,301]
-
-    # Change to for i in range(1,100) for Random SAT Simulations
-    for i in crafted_list:
+    industrial_list = ["0432-003","2670-130","2670-141","6288-047","7552-038","7552-158","7552-159","7552-160"]
+  
+    # Change to random_list for Random3SAT and industrial_list for Industrial problems
+    # NOTE : Also need to make changes in get_cur_problem_stream
+    for i in industrial_list:
         print "Current problem : " + str(i)
         stream = get_cur_problem_stream(i)
         [S,cList] = parse_SAT(stream)
