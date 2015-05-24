@@ -1,3 +1,4 @@
+For 14 Crafted Problems , results
          3376187801 function calls (3376186983 primitive calls) in 9451.942 seconds
 
    Ordered by: standard name

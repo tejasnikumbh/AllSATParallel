@@ -3,6 +3,7 @@ import minisolvers
 # Relevant to the parallel module
 import pp
 import sys
+import time
 
 '''
     Function : parse_SAT(stream)
@@ -238,7 +239,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Industrial/ssa" + str(i) + ".cnf"
+    file_string = "input/Random3SAT/uf250-1065/uf250-0" + str(i) + ".cnf"
     print file_string
     stream = open(file_string)
     return stream
@@ -253,8 +254,11 @@ def get_all_sat(S,cList):
     F = S
     Q = []
     while(F.solve()):
+        # Break in case of a time out
+        cur_time = time.time()
+        if(cur_time - cur_start > 5400): 
+            break
         minterm = list(F.get_model())
-        print minterm
         [cube_cover,blocking_clause] = get_cube_cover(minterm,cList)
         Q.append(list(cube_cover))
         F.add_clause(blocking_clause)
@@ -284,6 +288,7 @@ def get_all_sat(S,cList):
 # Global parallel vars being assigned defaults
 job_server = None  
 ncpus = 1
+cur_start = 0
 
 '''
     Main Program for the SAT Instance algorithm. This function is incharge of
@@ -295,6 +300,7 @@ if __name__ == "__main__":
     # Global variables
     global job_server
     global ncpus
+    global cur_start
 
     # tuple of all parallel python servers to connect with
     ppservers = ()
@@ -319,12 +325,14 @@ if __name__ == "__main__":
   
     # Change to random_list for Random3SAT and industrial_list for Industrial problems
     # NOTE : Also need to make changes in get_cur_problem_stream
-    for i in industrial_list:
-        print "Current problem : " + str(i)
-        stream = get_cur_problem_stream(i)
-        [S,cList] = parse_SAT(stream)
-        [j,Q] = get_all_sat(S,cList)
-        print_result(j,Q)
+    for i in random_list:
+        if(i%9 == 8):
+            cur_start = time.time()
+            print "Current problem : " + str(i)
+            stream = get_cur_problem_stream(i)
+            [S,cList] = parse_SAT(stream)
+            [j,Q] = get_all_sat(S,cList)
+            print_result(j,Q)
     
  
     # Debugger stream

@@ -1,4 +1,5 @@
-         3376187801 function calls (3376186983 primitive calls) in 9451.942 seconds
+For 6 problems - Industrial results
+655175802 function calls (655174984 primitive calls) in 18541.567 seconds
 
    Ordered by: standard name
 
@@ -43,28 +44,28 @@
         1    0.000    0.000    0.000    0.000 __init__.py:230(LogRecord)
         1    0.000    0.000    0.000    0.000 __init__.py:233(c_byte)
         1    0.000    0.000    0.000    0.000 __init__.py:238(c_char)
-        1    0.000    0.000    0.001    0.001 __init__.py:24(<module>)
+        1    0.000    0.000    0.000    0.000 __init__.py:24(<module>)
         1    0.000    0.000    0.000    0.000 __init__.py:243(c_char_p)
         1    0.000    0.000    0.000    0.000 __init__.py:255(c_void_p)
         1    0.000    0.000    0.000    0.000 __init__.py:260(c_bool)
         1    0.000    0.000    0.000    0.000 __init__.py:275(c_wchar_p)
         1    0.000    0.000    0.000    0.000 __init__.py:278(c_wchar)
         1    0.000    0.000    0.000    0.000 __init__.py:320(CDLL)
-       15    0.001    0.000    0.002    0.000 __init__.py:337(__init__)
+        6    0.000    0.000    0.002    0.000 __init__.py:337(__init__)
         1    0.000    0.000    0.000    0.000 __init__.py:346(Formatter)
-       15    0.000    0.000    0.000    0.000 __init__.py:347(_FuncPtr)
-      238    0.000    0.000    0.002    0.000 __init__.py:363(__getattr__)
-      238    0.001    0.000    0.001    0.000 __init__.py:370(__getitem__)
+        6    0.000    0.000    0.000    0.000 __init__.py:347(_FuncPtr)
+       85    0.000    0.000    0.001    0.000 __init__.py:363(__getattr__)
+       85    0.000    0.000    0.000    0.000 __init__.py:370(__getitem__)
         1    0.000    0.000    0.000    0.000 __init__.py:376(PyDLL)
         1    0.000    0.000    0.000    0.000 __init__.py:390(__init__)
-        1    0.001    0.001    0.002    0.002 __init__.py:4(<module>)
+        1    0.002    0.002    0.002    0.002 __init__.py:4(<module>)
         1    0.000    0.000    0.000    0.000 __init__.py:416(LibraryLoader)
         2    0.000    0.000    0.000    0.000 __init__.py:417(__init__)
-       14    0.000    0.000    0.002    0.000 __init__.py:430(LoadLibrary)
+        5    0.000    0.000    0.002    0.000 __init__.py:430(LoadLibrary)
         3    0.000    0.000    0.000    0.000 __init__.py:483(PYFUNCTYPE)
         3    0.000    0.000    0.000    0.000 __init__.py:484(CFunctionType)
         1    0.000    0.000    0.000    0.000 __init__.py:490(BufferingFormatter)
-   971566    2.791    0.000    2.791    0.000 __init__.py:491(cast)
+    79671    0.277    0.000    0.277    0.000 __init__.py:491(cast)
         1    0.000    0.000    0.000    0.000 __init__.py:532(Filter)
         1    0.000    0.000    0.000    0.000 __init__.py:569(Filterer)
         2    0.000    0.000    0.000    0.000 __init__.py:574(__init__)
@@ -94,51 +95,51 @@
         1    0.000    0.000    0.000    0.000 collections.py:326(Counter)
         1    0.000    0.000    0.000    0.000 collections.py:46(OrderedDict)
         1    0.000    0.000    0.000    0.000 dis.py:1(<module>)
-       14    0.000    0.000    0.003    0.000 genericpath.py:15(exists)
+        5    0.000    0.000    0.000    0.000 genericpath.py:15(exists)
         1    0.000    0.000    0.000    0.000 hashlib.py:55(<module>)
         6    0.000    0.000    0.000    0.000 hashlib.py:91(__get_openssl_constructor)
         1    0.000    0.000    0.000    0.000 heapq.py:31(<module>)
-        1    0.000    0.000    0.021    0.021 inspect.py:25(<module>)
+        1    0.000    0.000    0.020    0.020 inspect.py:25(<module>)
         1    0.000    0.000    0.000    0.000 inspect.py:628(EndOfBlock)
         1    0.000    0.000    0.000    0.000 inspect.py:630(BlockFinder)
         1    0.000    0.000    0.000    0.000 keyword.py:11(<module>)
-   480083  160.956    0.000  744.414    0.002 main.py:109(get_essential_literals)
-   480083 2690.403    0.006 3094.545    0.006 main.py:122(get_clauses_covered_I)
-       14    0.097    0.007    0.489    0.035 main.py:13(parse_SAT)
-   480083   30.414    0.000   33.184    0.000 main.py:135(get_pruned_matrix)
-   480083    0.622    0.000   30.364    0.000 main.py:148(prune_implied)
-   480083    1.162    0.000    1.795    0.000 main.py:157(elim)
-   480083    6.344    0.000   27.948    0.000 main.py:169(get_implied_rows)
-  5594694   14.455    0.000   20.243    0.000 main.py:182(implied)
-   917579    0.713    0.000    4.050    0.000 main.py:191(transpose)
-        1    0.321    0.321 9451.942 9451.942 main.py:2(<module>)
-   480083   32.299    0.000   67.010    0.000 main.py:200(get_greedy_cover)
-   917579    0.928    0.000    1.144    0.000 main.py:211(prune_literal)
-   480083   93.808    0.000 8759.384    0.018 main.py:224(get_cube_cover)
-       14    0.000    0.000    0.000    0.000 main.py:233(print_result)
-       14    0.000    0.000    0.015    0.001 main.py:239(get_cur_problem_stream)
-       14    7.057    0.504 9450.880  675.063 main.py:246(get_all_sat)
-   480083  177.145    0.000 4689.141    0.010 main.py:48(get_ucp_matrix)
-384124000 4025.143    0.000 4508.023    0.000 main.py:83(get_ucp_row)
-   480083    6.919    0.000 3879.062    0.008 main.py:96(get_essential_literals_and_modify)
-     1400    0.004    0.000    0.004    0.000 minisolvers.py:105(new_var)
- 44480936   41.905    0.000   41.905    0.000 minisolvers.py:129(nvars)
-   491483   12.002    0.000  114.644    0.000 minisolvers.py:145(add_clause)
- 44492336   39.274    0.000   88.652    0.000 minisolvers.py:158(<genexpr>)
-   480097  559.509    0.001  559.509    0.001 minisolvers.py:169(solve)
-   480083    7.091    0.000   10.493    0.000 minisolvers.py:191(get_model)
-        1    0.000    0.000    0.002    0.002 minisolvers.py:21(<module>)
+    17608   53.473    0.003 1794.014    0.102 main.py:110(get_essential_literals)
+    17608 6791.496    0.386 7369.487    0.419 main.py:123(get_clauses_covered_I)
+        5    0.319    0.064    1.230    0.246 main.py:13(parse_SAT)
+    17607    5.693    0.000    6.097    0.000 main.py:136(get_pruned_matrix)
+    17607    0.068    0.000    2.369    0.000 main.py:149(prune_implied)
+    17607    0.070    0.000    0.094    0.000 main.py:158(elim)
+    17607    0.233    0.000    2.208    0.000 main.py:170(get_implied_rows)
+    13102    0.341    0.000    1.884    0.000 main.py:183(implied)
+    20784    0.036    0.000    2.061    0.000 main.py:192(transpose)
+        1    0.005    0.005 18541.567 18541.567 main.py:2(<module>)
+    17607    8.706    0.000   19.935    0.001 main.py:201(get_greedy_cover)
+    20784    0.023    0.000    0.025    0.000 main.py:212(prune_literal)
+    17608  184.182    0.010 18467.317    1.049 main.py:225(get_cube_cover)
+        4    0.000    0.000    0.000    0.000 main.py:234(print_result)
+        5    0.000    0.000    0.003    0.001 main.py:240(get_cur_problem_stream)
+        5    2.137    0.427 18540.095 3708.019 main.py:247(get_all_sat)
+    17608   40.867    0.002 9087.919    0.516 main.py:49(get_ucp_matrix)
+ 62948600 8427.932    0.000 9046.070    0.000 main.py:84(get_ucp_row)
+    17608    3.314    0.000 9172.912    0.521 main.py:97(get_essential_literals_and_modify)
+    14691    0.031    0.000    0.031    0.000 minisolvers.py:105(new_var)
+ 25638858   24.215    0.000   24.215    0.000 minisolvers.py:129(nvars)
+    62083    5.942    0.000   64.093    0.001 minisolvers.py:145(add_clause)
+ 25683333   22.570    0.000   51.508    0.000 minisolvers.py:158(<genexpr>)
+    17612    4.903    0.000    4.903    0.000 minisolvers.py:169(solve)
+    17608    2.282    0.000    2.410    0.000 minisolvers.py:191(get_model)
+        1    0.000    0.000    0.003    0.003 minisolvers.py:21(<module>)
         1    0.000    0.000    0.000    0.000 minisolvers.py:247(SubsetMixin)
         1    0.000    0.000    0.000    0.000 minisolvers.py:30(Solver)
         1    0.000    0.000    0.000    0.000 minisolvers.py:315(MinisatSolver)
-       14    0.000    0.000    0.010    0.001 minisolvers.py:358(__init__)
+        5    0.000    0.000    0.003    0.001 minisolvers.py:358(__init__)
         1    0.000    0.000    0.000    0.000 minisolvers.py:362(MinicardSolver)
-       14    0.001    0.000    0.010    0.001 minisolvers.py:43(__init__)
+        5    0.000    0.000    0.003    0.001 minisolvers.py:43(__init__)
         1    0.000    0.000    0.000    0.000 minisolvers.py:441(MinisatSubsetSolver)
-       14    0.001    0.000    0.009    0.001 minisolvers.py:48(_setup_lib)
+        5    0.000    0.000    0.003    0.001 minisolvers.py:48(_setup_lib)
         1    0.000    0.000    0.000    0.000 minisolvers.py:487(MinicardSubsetSolver)
-       13    0.002    0.000    0.002    0.000 minisolvers.py:95(__del__)
-   971566    1.947    0.000    5.371    0.000 minisolvers.py:99(_to_intptr)
+        4    0.001    0.000    0.001    0.000 minisolvers.py:95(__del__)
+    79671    0.168    0.000    0.500    0.000 minisolvers.py:99(_to_intptr)
       119    0.000    0.000    0.000    0.000 opcode.py:27(def_op)
        11    0.000    0.000    0.000    0.000 opcode.py:31(name_op)
         6    0.000    0.000    0.000    0.000 opcode.py:35(jrel_op)
@@ -153,24 +154,24 @@
         1    0.000    0.000    0.000    0.000 pickle.py:69(UnpicklingError)
         1    0.000    0.000    0.000    0.000 pickle.py:82(_Stop)
         1    0.000    0.000    0.000    0.000 pickle.py:827(Unpickler)
-       14    0.000    0.000    0.000    0.000 posixpath.py:118(dirname)
-       14    0.000    0.000    0.000    0.000 posixpath.py:312(normpath)
-       14    0.000    0.000    0.000    0.000 posixpath.py:341(abspath)
+        5    0.000    0.000    0.000    0.000 posixpath.py:118(dirname)
+        5    0.000    0.000    0.000    0.000 posixpath.py:312(normpath)
+        5    0.000    0.000    0.000    0.000 posixpath.py:341(abspath)
         1    0.000    0.000    0.000    0.000 posixpath.py:43(normcase)
-       14    0.000    0.000    0.000    0.000 posixpath.py:51(isabs)
-       15    0.000    0.000    0.000    0.000 posixpath.py:60(join)
+        5    0.000    0.000    0.000    0.000 posixpath.py:51(isabs)
+        6    0.000    0.000    0.000    0.000 posixpath.py:60(join)
         1    0.000    0.000    0.000    0.000 pp.py:127(_Worker)
-        8    0.000    0.000    0.204    0.025 pp.py:134(__init__)
-        8    0.000    0.000    0.203    0.025 pp.py:140(start)
+        8    0.000    0.000    0.205    0.026 pp.py:134(__init__)
+        8    0.000    0.000    0.204    0.026 pp.py:140(start)
         1    0.000    0.000    0.000    0.000 pp.py:174(_RWorker)
         1    0.000    0.000    0.000    0.000 pp.py:224(_Statistics)
         1    0.000    0.000    0.000    0.000 pp.py:228(__init__)
         1    0.000    0.000    0.000    0.000 pp.py:236(Template)
         1    0.000    0.000    0.000    0.000 pp.py:273(Server)
-        1    0.000    0.000    0.204    0.204 pp.py:280(__init__)
-        1    0.002    0.002    0.028    0.028 pp.py:31(<module>)
+        1    0.000    0.000    0.205    0.205 pp.py:280(__init__)
+        1    0.002    0.002    0.027    0.027 pp.py:31(<module>)
         1    0.000    0.000    0.000    0.000 pp.py:486(get_ncpus)
-        1    0.000    0.000    0.204    0.204 pp.py:490(set_ncpus)
+        1    0.000    0.000    0.205    0.205 pp.py:490(set_ncpus)
         1    0.000    0.000    0.000    0.000 pp.py:603(__connect)
         1    0.000    0.000    0.000    0.000 pp.py:612(__detect_ncpus)
         1    0.000    0.000    0.000    0.000 pp.py:69(_Task)
@@ -182,7 +183,7 @@
         1    0.000    0.000    0.000    0.000 pptransport.py:115(PipeTransport)
         8    0.000    0.000    0.000    0.000 pptransport.py:117(__init__)
         8    0.000    0.000    0.000    0.000 pptransport.py:127(send)
-        8    0.000    0.000    0.195    0.024 pptransport.py:133(receive)
+        8    0.000    0.000    0.197    0.025 pptransport.py:133(receive)
         1    0.000    0.000    0.000    0.000 pptransport.py:161(SocketTransport)
         1    0.000    0.000    0.000    0.000 pptransport.py:218(CPipeTransport)
         1    0.000    0.000    0.000    0.000 pptransport.py:222(CSocketTransport)
@@ -190,18 +191,18 @@
         1    0.000    0.000    0.000    0.000 pptransport.py:55(Transport)
         1    0.000    0.000    0.000    0.000 pptransport.py:88(CTransport)
       117    0.000    0.000    0.001    0.000 re.py:134(match)
-        8    0.000    0.000    0.018    0.002 re.py:188(compile)
-      125    0.000    0.000    0.019    0.000 re.py:229(_compile)
+        8    0.000    0.000    0.017    0.002 re.py:188(compile)
+      125    0.000    0.000    0.018    0.000 re.py:229(_compile)
       118    0.000    0.000    0.004    0.000 sre_compile.py:178(_compile_charset)
-      118    0.002    0.000    0.004    0.000 sre_compile.py:207(_optimize_charset)
+      118    0.002    0.000    0.003    0.000 sre_compile.py:207(_optimize_charset)
       366    0.000    0.000    0.000    0.000 sre_compile.py:24(_identityfunction)
        20    0.001    0.000    0.001    0.000 sre_compile.py:258(_mk_bitmap)
     265/9    0.002    0.000    0.008    0.001 sre_compile.py:32(_compile)
       118    0.000    0.000    0.000    0.000 sre_compile.py:354(_simple)
         9    0.000    0.000    0.002    0.000 sre_compile.py:361(_compile_info)
        18    0.000    0.000    0.000    0.000 sre_compile.py:474(isstring)
-        9    0.000    0.000    0.010    0.001 sre_compile.py:480(_code)
-        9    0.000    0.000    0.018    0.002 sre_compile.py:495(compile)
+        9    0.000    0.000    0.009    0.001 sre_compile.py:480(_code)
+        9    0.000    0.000    0.017    0.002 sre_compile.py:495(compile)
       566    0.000    0.000    0.000    0.000 sre_parse.py:126(__len__)
      1189    0.001    0.000    0.002    0.000 sre_parse.py:130(__getitem__)
       118    0.000    0.000    0.000    0.000 sre_parse.py:134(__setitem__)
@@ -213,8 +214,8 @@
       763    0.001    0.000    0.002    0.000 sre_parse.py:201(get)
        38    0.000    0.000    0.000    0.000 sre_parse.py:225(_class_escape)
        66    0.000    0.000    0.000    0.000 sre_parse.py:257(_escape)
-     59/9    0.001    0.000    0.008    0.001 sre_parse.py:301(_parse_sub)
-    117/9    0.003    0.000    0.008    0.001 sre_parse.py:379(_parse)
+     59/9    0.000    0.000    0.008    0.001 sre_parse.py:301(_parse_sub)
+    117/9    0.003    0.000    0.007    0.001 sre_parse.py:379(_parse)
         9    0.000    0.000    0.008    0.001 sre_parse.py:663(parse)
         9    0.000    0.000    0.000    0.000 sre_parse.py:67(__init__)
        38    0.000    0.000    0.000    0.000 sre_parse.py:72(opengroup)
@@ -227,9 +228,9 @@
         1    0.000    0.000    0.002    0.002 subprocess.py:389(<module>)
         1    0.000    0.000    0.000    0.000 subprocess.py:401(CalledProcessError)
         8    0.000    0.000    0.000    0.000 subprocess.py:453(_cleanup)
-        8    0.000    0.000    0.005    0.001 subprocess.py:468(_eintr_retry_call)
+        8    0.000    0.000    0.004    0.000 subprocess.py:468(_eintr_retry_call)
         1    0.000    0.000    0.000    0.000 subprocess.py:611(Popen)
-        8    0.000    0.000    0.008    0.001 subprocess.py:612(__init__)
+        8    0.000    0.000    0.007    0.001 subprocess.py:612(__init__)
         8    0.000    0.000    0.000    0.000 subprocess.py:702(__del__)
         1    0.001    0.001    0.002    0.002 threading.py:1(<module>)
         1    0.000    0.000    0.000    0.000 threading.py:100(__init__)
@@ -264,7 +265,7 @@
         1    0.000    0.000    0.000    0.000 tokenize.py:145(TokenError)
         1    0.000    0.000    0.000    0.000 tokenize.py:147(StopTokenizing)
         1    0.000    0.000    0.000    0.000 tokenize.py:178(Untokenizer)
-        1    0.000    0.000    0.018    0.018 tokenize.py:23(<module>)
+        1    0.000    0.000    0.017    0.017 tokenize.py:23(<module>)
        19    0.000    0.000    0.000    0.000 tokenize.py:44(group)
         1    0.000    0.000    0.000    0.000 tokenize.py:45(any)
         2    0.000    0.000    0.000    0.000 tokenize.py:46(maybe)
@@ -273,8 +274,8 @@
         1    0.000    0.000    0.000    0.000 warnings.py:14(warnpy3k)
         1    0.000    0.000    0.000    0.000 warnings.py:45(filterwarnings)
         1    0.000    0.000    0.000    0.000 weakref.py:47(__init__)
-   971568    0.329    0.000    0.329    0.000 {_ctypes.POINTER}
-       15    0.002    0.000    0.002    0.000 {_ctypes.dlopen}
+    79673    0.030    0.000    0.030    0.000 {_ctypes.POINTER}
+        6    0.001    0.000    0.001    0.000 {_ctypes.dlopen}
         1    0.000    0.000    0.000    0.000 {_ctypes.set_conversion_mode}
        34    0.000    0.000    0.000    0.000 {_ctypes.sizeof}
         1    0.000    0.000    0.000    0.000 {_hashlib.openssl_md5}
@@ -288,8 +289,8 @@
        26    0.000    0.000    0.000    0.000 {_struct.calcsize}
         8    0.000    0.000    0.000    0.000 {_struct.pack}
         8    0.000    0.000    0.000    0.000 {_struct.unpack}
- 44000853    8.298    0.000    8.298    0.000 {abs}
-   491513   11.075    0.000   99.728    0.000 {all}
+ 25621250    4.752    0.000    4.752    0.000 {abs}
+    62113    6.226    0.000   57.734    0.001 {all}
         6    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x449f43e0}
       117    0.000    0.000    0.000    0.000 {built-in method match}
         2    0.000    0.000    0.000    0.000 {dir}
@@ -300,61 +301,61 @@
        91    0.000    0.000    0.000    0.000 {getattr}
         7    0.000    0.000    0.000    0.000 {globals}
         9    0.000    0.000    0.000    0.000 {hasattr}
-     1529    0.001    0.000    0.001    0.000 {isinstance}
+     1358    0.001    0.000    0.001    0.000 {isinstance}
         1    0.000    0.000    0.000    0.000 {issubclass}
-823103305/823103155  175.462    0.000  175.462    0.000 {len}
+151631871/151631721   32.606    0.000   32.606    0.000 {len}
         6    0.000    0.000    0.000    0.000 {locals}
-       15    0.000    0.000    0.017    0.001 {map}
-   917667    3.433    0.000    3.433    0.000 {max}
+       15    0.000    0.000    0.016    0.001 {map}
+    20872    1.025    0.000    1.025    0.000 {max}
        30    0.000    0.000    0.000    0.000 {method '__contains__' of 'frozenset' objects}
         3    0.000    0.000    0.000    0.000 {method 'acquire' of 'thread.lock' objects}
-1008713263  216.550    0.000  216.550    0.000 {method 'add' of 'set' objects}
-  4243338    1.126    0.000    1.126    0.000 {method 'append' of 'list' objects}
-   971566    0.304    0.000    0.304    0.000 {method 'buffer_info' of 'array.array' objects}
+126819334   31.836    0.000   31.836    0.000 {method 'add' of 'set' objects}
+   113728    0.050    0.000    0.050    0.000 {method 'append' of 'list' objects}
+    79671    0.026    0.000    0.026    0.000 {method 'buffer_info' of 'array.array' objects}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-       15    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
        24    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
        16    0.000    0.000    0.000    0.000 {method 'flush' of 'file' objects}
       275    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
- 90563008  144.474    0.000  144.474    0.000 {method 'index' of 'list' objects}
+ 52968036  920.688    0.000  920.688    0.000 {method 'index' of 'list' objects}
         1    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
       214    0.000    0.000    0.000    0.000 {method 'isalnum' of 'str' objects}
        30    0.000    0.000    0.000    0.000 {method 'isdigit' of 'str' objects}
        16    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
-       40    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+       31    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
         1    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
         6    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
-       16    0.195    0.012    0.195    0.012 {method 'read' of 'file' objects}
-       14    0.006    0.000    0.006    0.000 {method 'readlines' of 'file' objects}
+       16    0.196    0.012    0.196    0.012 {method 'read' of 'file' objects}
+        5    0.003    0.001    0.003    0.001 {method 'readlines' of 'file' objects}
         2    0.000    0.000    0.000    0.000 {method 'release' of 'thread.lock' objects}
        38    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
        12    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
-       15    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
-    11643    0.004    0.000    0.004    0.000 {method 'rstrip' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+    44546    0.017    0.000    0.017    0.000 {method 'rstrip' of 'str' objects}
         2    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
-    11435    0.008    0.000    0.008    0.000 {method 'split' of 'str' objects}
-    46255    0.015    0.000    0.015    0.000 {method 'startswith' of 'str' objects}
+    44493    0.022    0.000    0.022    0.000 {method 'split' of 'str' objects}
+   178179    0.052    0.000    0.052    0.000 {method 'startswith' of 'str' objects}
        16    0.000    0.000    0.000    0.000 {method 'write' of 'file' objects}
       614    0.000    0.000    0.000    0.000 {min}
-       15    0.015    0.001    0.015    0.001 {open}
+        6    0.003    0.000    0.003    0.000 {open}
       301    0.000    0.000    0.000    0.000 {ord}
        40    0.000    0.000    0.000    0.000 {posix.close}
        24    0.000    0.000    0.000    0.000 {posix.fdopen}
         8    0.002    0.000    0.002    0.000 {posix.fork}
-       15    0.000    0.000    0.000    0.000 {posix.getcwd}
+        6    0.000    0.000    0.000    0.000 {posix.getcwd}
        32    0.000    0.000    0.000    0.000 {posix.pipe}
         1    0.000    0.000    0.000    0.000 {posix.putenv}
-        8    0.004    0.001    0.004    0.001 {posix.read}
-       14    0.003    0.000    0.003    0.000 {posix.stat}
+        8    0.004    0.000    0.004    0.000 {posix.read}
+        5    0.000    0.000    0.000    0.000 {posix.stat}
         2    0.000    0.000    0.000    0.000 {posix.sysconf}
        36    0.000    0.000    0.000    0.000 {posix.waitpid}
-436606163  530.115    0.000  530.115    0.000 {range}
+ 88561256 1147.315    0.000 1147.315    0.000 {range}
         6    0.000    0.000    0.000    0.000 {repr}
-      238    0.000    0.000    0.000    0.000 {setattr}
-475881900  443.839    0.000  443.839    0.000 {sum}
+       85    0.000    0.000    0.000    0.000 {setattr}
+ 94145384  815.374    0.000  815.374    0.000 {sum}
         6    0.000    0.000    0.000    0.000 {sys._getframe}
         9    0.000    0.000    0.000    0.000 {thread.allocate_lock}
         4    0.000    0.000    0.000    0.000 {thread.get_ident}
         2    0.000    0.000    0.000    0.000 {time.time}
-   917579    3.337    0.000    3.337    0.000 {zip}
+    20784    2.025    0.000    2.025    0.000 {zip}
 
