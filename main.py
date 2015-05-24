@@ -239,7 +239,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Random3SAT/uf250-1065/uf250-0" + str(i) + ".cnf"
+    file_string = "input/Crafted/set1/" + str(i) + ".cnf"
     print file_string
     stream = open(file_string)
     return stream
@@ -320,19 +320,30 @@ if __name__ == "__main__":
     # Parsing the Input in cnf form and forming a SAT Instance
     # Crafted problem file list
     random_list = range(1,101)
-    crafted_list = [1,7,201,204,205,209,207,210,212,213,217,218,220,301]
+    crafted_list_1 = ["hwb-n26-01-S1957858365.shuffled-as.sat03-1622.used-as.sat04-859",
+                    "hwb-n26-02-S1189729474.shuffled-as.sat03-1623.used-as.sat04-848",
+                    "hwb-n26-03-S540351185.shuffled-as.sat03-1624.used-as.sat04-849",
+		    "hwb-n28-01-S136611085.shuffled-as.sat03-1627.used-as.sat04-850",
+                    "hwb-n28-02-S818962541.shuffled-as.sat03-1628.used-as.sat04-851",
+                    "hwb-n28-03-S1967922763.shuffled-as.sat03-1629.used-as.sat04-852",
+                    "hwb-n30-01-S682466202.shuffled-as.sat03-1632.used-as.sat04-853",
+                    "hwb-n30-02-S77299857.shuffled-as.sat03-1633.used-as.sat04-854",
+                    "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-855",
+                    "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-856",
+                    "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-857",
+                    "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-858"]
+    crafted_list_2 = [1,7,201,204,205,209,207,210,212,213,217,218,220,301]
     industrial_list = ["0432-003","2670-130","2670-141","6288-047","7552-038","7552-158","7552-159","7552-160"]
   
     # Change to random_list for Random3SAT and industrial_list for Industrial problems
     # NOTE : Also need to make changes in get_cur_problem_stream
-    for i in random_list:
-        if(i%9 == 8):
-            cur_start = time.time()
-            print "Current problem : " + str(i)
-            stream = get_cur_problem_stream(i)
-            [S,cList] = parse_SAT(stream)
-            [j,Q] = get_all_sat(S,cList)
-            print_result(j,Q)
+    for i in crafted_list_1:
+        cur_start = time.time()
+        print "Current problem : " + str(i)
+        stream = get_cur_problem_stream(i)
+        [S,cList] = parse_SAT(stream)
+        [j,Q] = get_all_sat(S,cList)
+        print_result(j,Q)
     
  
     # Debugger stream
