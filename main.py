@@ -239,7 +239,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Crafted/set1/" + str(i) + ".cnf"
+    file_string = "input/Industrial/set2/" + str(i)
     print file_string
     stream = open(file_string)
     return stream
@@ -333,11 +333,30 @@ if __name__ == "__main__":
                     "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-857",
                     "hwb-n30-03-S44661219.shuffled-as.sat03-1634.used-as.sat04-858"]
     crafted_list_2 = [1,7,201,204,205,209,207,210,212,213,217,218,220,301]
-    industrial_list = ["0432-003","2670-130","2670-141","6288-047","7552-038","7552-158","7552-159","7552-160"]
+    industrial_list_1 = ["0432-003","2670-130","2670-141","6288-047","7552-038","7552-158","7552-159","7552-160"]
+    industrial_list_2 = ["ferry10_ks99a.renamed-as.sat05-3992.cnf",
+"ferry7_ks99i.renamed-as.sat05-4001.cnf",
+"ferry10_v01a.renamed-as.sat05-3993.cnf" ,  
+"ferry7_v01a.renamed-as.sat05-4002.cnf",
+"ferry5_ks99i.renamed-as.sat05-3994.cnf",   
+"ferry7_v01i.renamed-as.sat05-4003.cnf",
+"ferry5_v01i.renamed-as.sat05-3995.cnf",
+"ferry8_ks99a.renamed-as.sat05-4004.cnf",
+"ferry6_ks99a.renamed-as.sat05-3996.cnf" ,  
+"ferry8_ks99i.renamed-as.sat05-4005.cnf",
+"ferry6_ks99i.renamed-as.sat05-3997.cnf" ,  
+"ferry8_v01a.renamed-as.sat05-4006.cnf",
+"ferry6_v01a.renamed-as.sat05-3998.cnf" ,   
+"ferry8_v01i.renamed-as.sat05-4007.cnf",
+"ferry6_v01i.renamed-as.sat05-3999.cnf" ,   
+"ferry9_ks99a.renamed-as.sat05-4008.cnf",
+"ferry7_ks99a.renamed-as.sat05-4000.cnf" ,  
+"ferry9_v01a.renamed-as.sat05-4009.cnf"]
+
   
     # Change to random_list for Random3SAT and industrial_list for Industrial problems
     # NOTE : Also need to make changes in get_cur_problem_stream
-    for i in crafted_list_1:
+    for i in industrial_list_2:
         cur_start = time.time()
         print "Current problem : " + str(i)
         stream = get_cur_problem_stream(i)
