@@ -239,7 +239,7 @@ def print_result(i,Q):
         print "SATISFIABLE"
 
 def get_cur_problem_stream(i):
-    file_string = "input/Industrial/set2/" + str(i)
+    file_string = "input/Industrial/set3/" + str(i)
     print file_string
     stream = open(file_string)
     return stream
@@ -352,11 +352,30 @@ if __name__ == "__main__":
 "ferry9_ks99a.renamed-as.sat05-4008.cnf",
 "ferry7_ks99a.renamed-as.sat05-4000.cnf" ,  
 "ferry9_v01a.renamed-as.sat05-4009.cnf"]
+    industrial_list_3 = ["ferry10_ks99a.shuffled-as.sat05-4059.cnf",
+"ferry10_v01a.shuffled-as.sat05-4060.cnf",
+"ferry5_ks99i.shuffled-as.sat05-4061.cnf",
+"ferry5_v01i.shuffled-as.sat05-4062.cnf",
+"ferry6_ks99a.shuffled-as.sat05-4063.cnf",
+"ferry6_ks99i.shuffled-as.sat05-4064.cnf",
+"ferry6_v01a.shuffled-as.sat05-4065.cnf",
+"ferry6_v01i.shuffled-as.sat05-4066.cnf",
+"ferry7_ks99a.shuffled-as.sat05-4067.cnf",
+"ferry7_ks99i.shuffled-as.sat05-4068.cnf",
+"ferry7_v01a.shuffled-as.sat05-4069.cnf",
+"ferry7_v01i.shuffled-as.sat05-4070.cnf",
+"ferry8_ks99a.shuffled-as.sat05-4071.cnf",
+"ferry8_ks99i.shuffled-as.sat05-4072.cnf",
+"ferry8_v01a.shuffled-as.sat05-4073.cnf",
+"ferry8_v01i.shuffled-as.sat05-4074.cnf",
+"ferry9_ks99a.shuffled-as.sat05-4075.cnf",
+"ferry9_v01a.shuffled-as.sat05-4076.cnf"
+]
 
   
     # Change to random_list for Random3SAT and industrial_list for Industrial problems
     # NOTE : Also need to make changes in get_cur_problem_stream
-    for i in industrial_list_2:
+    for i in industrial_list_3:
         cur_start = time.time()
         print "Current problem : " + str(i)
         stream = get_cur_problem_stream(i)
